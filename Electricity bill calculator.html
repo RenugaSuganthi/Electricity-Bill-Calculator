@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House Rent and Electricity Bill Calculator</title>
+  <style>
+    body {
+      background-image: url(b.jpg);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      font-family: times new roman;
+      margin: 50px; 
+      text-align: center;
+    }
+
+    .space{
+      margin-right: 20px;
+     }
+
+    label {
+      font-size: 20px;
+      font-family: times new roman;
+      display: inline-block;
+      margin-bottom: 2.5px;
+      /* Set a fixed width for labels */
+      text-align: left;
+    }
+
+    input, select {
+      width: 150px; /* Set a fixed width for input/select */
+      padding: 10px;
+      margin-bottom: 10px; /* Adjusted margin to add space after input boxes */
+      box-sizing: border-box;
+    }
+    
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      width: 50%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: white;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+      border-color: black;
+    }
+
+    #totalExpenses {
+      margin-top: 20px;
+      font-size: 20px;
+      font-family: times new roman;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo2.png" class="centerimage" width="150px" height="150px" align="middle">
+  <h1 align="center">Electricity Bill Calculator</h1>
+
+  <form id="billForm">
+    <label for="tariff" align="left">Tariff Category:</label>
+    <select id="tariff" required align="left">
+      <option value="select" hidden>Select</option>
+      <option value="Domestic">Domestic</option>
+      <option value="LT Industries">LT Industries</option>
+      <option value="LT Private">LT Private</option>
+      <option value="LT Government">LT Government</option>
+      <option value="LT Commercial">LT Commercial</option>
+      <option value="HT Industries">HT Industries</option>
+      <option value="HT Private">HT Private</option>
+      <option value="HT Government">HT Government</option>
+      <option value="HT Commercial">HT Commercial</option>
+    </select>
+
+    <label for="consumedUnits" align="center"><span class="space"></span>Consumed Units per Month:</label>
+    <input type="number" id="consumedUnits" placeholder="Enter consumed units" min="0" required align="left">
+
+    <label for="rent" align="right"><span class="space"></span>Rent Amount:</label>
+    <input type="number" id="rent" placeholder="Enter rent amount" min="1000" value="0" required align="left">
+    
+    <br><br><button type="button" onclick="calculateExpenses()">Submit</button>
+  </form>
+
+  <div id="totalExpenses"></div>
+  <script>
+    function calculateExpenses() {
+  var consumedUnits = parseFloat(document.getElementById("consumedUnits").value);
+  var rentAmount = parseFloat(document.getElementById("rent").value);
+  var tariff = document.getElementById("tariff").value;
+  var sum = 0;
+
+      if (tariff === "Domestic") {
+        if (consumedUnits <= 500) {
+          if (consumedUnits <= 100) {
+            sum = consumedUnits * 0;
+          } else if (consumedUnits <= 200) {
+            sum = (consumedUnits - 100) * 2.25;
+          } else if (consumedUnits <= 400) {
+            sum = (consumedUnits - 200) * 4.5 + 100 * 2.25;
+          } else {
+            sum = (consumedUnits - 400) * 6 + 200 * 4.5 + 100 * 2.25;
+          }
+        } else {
+          if (consumedUnits <= 600) {
+            sum = (consumedUnits - 500) * 8 + 300 * 4.5 + 100 * 6;
+          } else if (consumedUnits <= 800) {
+            sum = (consumedUnits - 600) * 9 + 200 * 9 + 100 * 8 + 300 * 4.5;
+          } else if (consumedUnits <= 1000) {
+            sum = (consumedUnits - 800) * 10 + 200 * 10 + 100 * 9 + 100 * 8 + 300 * 4.5;
+          } else {
+            sum = (consumedUnits - 1000) * 11 + 200 * 10 + 200 * 9 + 100 * 8 + 100 * 6 + 300 * 4.5;
+          }
+        }
+      } else if (tariff === "LT Industries") {
+        if (consumedUnits <= 50) {
+          sum = consumedUnits * 7.65 + 77;
+        } else if (consumedUnits <= 112) {
+          sum = (consumedUnits - 50) * 7.65 + 77 + 76.5;
+        } else {
+          sum = (consumedUnits - 112) * 7.65 + 77 + 76.5 + 450.48;
+        }
+      } else if (tariff === "LT Private" || tariff === "LT Government") {
+        if (consumedUnits <= 50) {
+          sum = consumedUnits * (tariff === "LT Private" ? 8.7 : 8.15) + 102;
+        } else if (consumedUnits <= 112) {
+          sum = (consumedUnits - 50) * (tariff === "LT Private" ? 8.7 : 8.15) + 102 + 282;
+        } else {
+          sum = (consumedUnits - 112) * (tariff === "LT Private" ? 8.7 : 8.15) + 102 + 282 + 230.4;
+        }
+      } else if (tariff === "LT Commercial") {
+        if (consumedUnits <= 100) {
+          sum = consumedUnits * 6.15 + 102;
+        } else {
+          sum = (consumedUnits - 100) * 9.7 + 307 + 100 * 6.15;
+        }
+      } else if (tariff === "HT Industries") {
+        sum = (consumedUnits * 6.90) + 562;
+      } else if (tariff === "HT Private" || tariff === "HT Government") {
+          sum = (consumedUnits * (tariff === "HT Private" ? 7.65 : 7.15)) + 562;
+      } else if (tariff === "HT Commercial") {
+          sum = (consumedUnits * 8.70) + 562;
+      } else {
+        document.getElementById("totalExpenses").innerText = "Please select the tariff category";
+        return;
+      }
+
+      var totalExpenses = sum + rentAmount;
+
+      var table = "<table>";
+      table += "<tr><th>Tariff Category</th><th>Electricity Bill<br>(in Rs.)</th><th>Rent Amount</th><th>Total Expenses</th></tr>";
+      table += "<tr><td>" + tariff.charAt(0).toUpperCase() + tariff.slice(1) + "</td><td>" + sum.toFixed(2) + "</td><td>" + rentAmount.toFixed(2) + "</td><td>" + totalExpenses.toFixed(2) + "</td></tr>";
+      table += "</table>";
+
+      document.getElementById("totalExpenses").innerHTML = table;
+    }
+  </script>
+</body>
+</html>
