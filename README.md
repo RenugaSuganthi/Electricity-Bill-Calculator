@@ -1,4 +1,4 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=2,8,30&height=160&section=header&text=⚡%20Bill%20%26%20Rent%20Calculator&fontSize=34&fontColor=fff&animation=twinkling&fontAlignY=35&desc=TNEB+Electricity+%26+Home+Rent+Estimation+Engine&descAlignY=60&descSize=16" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=2,8,30&height=160&section=header&text=Bill+and+Rent+Calculator&fontSize=38&fontColor=fff&animation=twinkling&fontAlignY=35&desc=TNEB+Electricity+and+Home+Rent+Estimation+Engine&descAlignY=60&descSize=16" width="100%"/>
 
 <div align="center">
 
